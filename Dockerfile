@@ -16,3 +16,19 @@ RUN apt-get install -y --allow-unauthenticated iproute2 wireguard-dkms wireguard
 COPY run.sh /run.sh
 
 CMD /run.sh
+
+#
+# Setup dependencies.
+#
+RUN mkdir -p ~/bin
+RUN cd ~/bin
+RUN export PATH="$PATH:/root/bin"
+RUN apt-get update -y
+RUN apt-get install -y software-properties-common unzip python-pip jq wget curl openssh-client
+
+# Dependency: Terraform.
+RUN wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip && unzip terraform_0.11.11_linux_amd64.zip
+
+# Dependency: kubectl.
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+RUN chmod +x ./kubectl
