@@ -27,8 +27,13 @@ RUN apt-get update -y
 RUN apt-get install -y software-properties-common unzip python-pip jq wget curl openssh-client
 
 # Dependency: Terraform.
-RUN wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip && unzip terraform_0.11.11_linux_amd64.zip
+RUN wget https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
+RUN unzip terraform_0.11.13_linux_amd64.zip
+RUN mv terraform /usr/local/bin/
+RUN terraform --version
 
 # Dependency: kubectl.
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 RUN chmod +x ./kubectl
+RUN mv kubectl /usr/local/bin/
+RUN kubectl
