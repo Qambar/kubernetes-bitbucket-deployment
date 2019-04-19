@@ -26,6 +26,11 @@ RUN export PATH="$PATH:/root/bin"
 RUN apt-get update -y
 RUN apt-get install -y software-properties-common unzip python-pip jq wget curl openssh-client
 
+# Install Git
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git
+
 # Dependency: Terraform.
 RUN wget https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
 RUN unzip terraform_0.11.13_linux_amd64.zip
